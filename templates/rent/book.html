@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Бронирование {{ car.brand }} {{ car.model }}{% endblock %}
+
+{% block content %}
+    <h1>Бронирование {{ car.brand }} {{ car.model }} ({{ car.year }})</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <p>Цена: <strong>{{ car.current_price }} руб./день</strong></p>
+                <button type="submit" class="btn btn-primary">Забронировать</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            {% if car.photo %}
+                <img src="{{ car.photo.url }}" class="img-fluid" alt="{{ car }}">
+            {% else %}
+                <img src="https://placehold.co/300x200" class="img-fluid" alt="No photo">
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

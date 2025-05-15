@@ -10,3 +10,12 @@
 .card:hover {
     transform: scale(1.05);
 }
+
+.img-fluid {
+    max-height: 300px;
+    object-fit: cover;
+}
+
+.alert {
+    margin-top: 1rem;
+}
