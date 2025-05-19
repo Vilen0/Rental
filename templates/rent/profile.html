@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+    <h1>Профиль пользователя {{ user.username }}</h1>
+
+    <h2>Активные аренды</h2>
+    {% if active_bookings %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Автомобиль</th>
+                    <th>Дата начала</th>
+                    <th>Дата окончания</th>
+                    <th>Стоимость</th>
+                    <th>Статус</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in active_bookings %}
+                    <tr>
+                        <td>{{ booking.car.car_model.brand }} {{ booking.car.car_model.model }} ({{ booking.car.year }})</td>
+                        <td>{{ booking.start_date }}</td>
+                        <td>{{ booking.end_date }}</td>
+                        <td>{{ booking.total_price }} руб.</td>
+                        <td>{{ booking.get_status_display }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Нет активных аренд.</p>
+    {% endif %}
+
+    <h2>История бронирований</h2>
+    {% if bookings %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Автомобиль</th>
+                    <th>Дата начала</th>
+                    <th>Дата окончания</th>
+                    <th>Стоимость</th>
+                    <th>Статус</th>
+                    <th>Дата создания</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in bookings %}
+                    <tr>
+                        <td>{{ booking.car.car_model.brand }} {{ booking.car.car_model.model }} ({{ booking.car.year }})</td>
+                        <td>{{ booking.start_date }}</td>
+                        <td>{{ booking.end_date }}</td>
+                        <td>{{ booking.total_price }} руб.</td>
+                        <td>{{ booking.get_status_display }}</td>
+                        <td>{{ booking.created_at|date:"d.m.Y H:i" }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Нет бронирований.</p>
+    {% endif %}
+{% endblock %}

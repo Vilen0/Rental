@@ -17,6 +17,9 @@
             <ul class="navbar-nav">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
+                        <a class="nav-link" href="{% url 'rent:profile' %}">Профиль</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'rent:user_logout' %}">Выход</a>
                     </li>
                 {% else %}
