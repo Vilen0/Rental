@@ -13,4 +13,6 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('add-car/', views.add_car, name='add_car'),
     path('edit-car/<int:car_id>/', views.edit_car, name='edit_car'),
+    path('toggle-user/<int:user_id>/', views.toggle_user_active, name='toggle_user_active'),
+    path('update-booking/<int:booking_id>/', views.update_booking_status, name='update_booking_status'),
 ]

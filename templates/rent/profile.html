@@ -5,61 +5,141 @@
 {% block content %}
     <h1>Профиль пользователя {{ user.username }}</h1>
 
-    <h2>Активные аренды</h2>
-    {% if active_bookings %}
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Автомобиль</th>
-                    <th>Дата начала</th>
-                    <th>Дата окончания</th>
-                    <th>Стоимость</th>
-                    <th>Статус</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for booking in active_bookings %}
+    {% if is_manager %}
+        <!-- Управление пользователями -->
+        <h2>Управление пользователями</h2>
+        {% if users %}
+            <table class="table table-striped">
+                <thead>
                     <tr>
-                        <td>{{ booking.car.car_model.brand }} {{ booking.car.car_model.model }} ({{ booking.car.year }})</td>
-                        <td>{{ booking.start_date }}</td>
-                        <td>{{ booking.end_date }}</td>
-                        <td>{{ booking.total_price }} руб.</td>
-                        <td>{{ booking.get_status_display }}</td>
+                        <th>Имя пользователя</th>
+                        <th>Email</th>
+                        <th>Статус</th>
+                        <th>Действия</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>Нет активных аренд.</p>
-    {% endif %}
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.is_active|yesno:"Активен,Заблокирован" }}</td>
+                            <td>
+                                <form method="post" action="{% url 'rent:toggle_user_active' user.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-{% if user.is_active %}danger{% else %}success{% endif %}">
+                                        {% if user.is_active %}Заблокировать{% else %}Активировать{% endif %}
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Нет пользователей.</p>
+        {% endif %}
 
-    <h2>История бронирований</h2>
-    {% if bookings %}
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Автомобиль</th>
-                    <th>Дата начала</th>
-                    <th>Дата окончания</th>
-                    <th>Стоимость</th>
-                    <th>Статус</th>
-                    <th>Дата создания</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for booking in bookings %}
+        <!-- Управление бронированиями -->
+        <h2>Управление бронированиями</h2>
+        {% if all_bookings %}
+            <table class="table table-striped">
+                <thead>
                     <tr>
-                        <td>{{ booking.car.car_model.brand }} {{ booking.car.car_model.model }} ({{ booking.car.year }})</td>
-                        <td>{{ booking.start_date }}</td>
-                        <td>{{ booking.end_date }}</td>
-                        <td>{{ booking.total_price }} руб.</td>
-                        <td>{{ booking.get_status_display }}</td>
-                        <td>{{ booking.created_at|date:"d.m.Y H:i" }}</td>
+                        <th>Автомобиль</th>
+                        <th>Пользователь</th>
+                        <th>Дата начала</th>
+                        <th>Дата окончания</th>
+                        <th>Стоимость</th>
+                        <th>Статус</th>
+                        <th>Действия</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {% for booking in all_bookings %}
+                        <tr>
+                            <td>{{ booking.car.car_model.brand }} {{ booking.car.car_model.model }} ({{ booking.car.year }})</td>
+                            <td>{{ booking.user.username }}</td>
+                            <td>{{ booking.start_date }}</td>
+                            <td>{{ booking.end_date }}</td>
+                            <td>{{ booking.total_price }} руб.</td>
+                            <td>{{ booking.get_status_display }}</td>
+                            <td>
+                                <form method="post" action="{% url 'rent:update_booking_status' booking.id %}">
+                                    {% csrf_token %}
+                                    <select name="status" class="form-select d-inline w-auto">
+                                        {% for value, label in booking.STATUS_CHOICES %}
+                                            <option value="{{ value }}" {% if booking.status == value %}selected{% endif %}>{{ label }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <button type="submit" class="btn btn-primary btn-sm">Изменить</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Нет бронирований.</p>
+        {% endif %}
     {% else %}
-        <p>Нет бронирований.</p>
+        <!-- Для обычных пользователей -->
+        <h2>Активные аренды</h2>
+        {% if active_bookings %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Автомобиль</th>
+                        <th>Дата начала</th>
+                        <th>Дата окончания</th>
+                        <th>Стоимость</th>
+                        <th>Статус</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in active_bookings %}
+                        <tr>
+                            <td>{{ booking.car.car_model.brand }} {{ booking.car.car_model.model }} ({{ booking.car.year }})</td>
+                            <td>{{ booking.start_date }}</td>
+                            <td>{{ booking.end_date }}</td>
+                            <td>{{ booking.total_price }} руб.</td>
+                            <td>{{ booking.get_status_display }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Нет активных аренд.</p>
+        {% endif %}
+
+        <h2>История бронирований</h2>
+        {% if bookings %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Автомобиль</th>
+                        <th>Дата начала</th>
+                        <th>Дата окончания</th>
+                        <th>Стоимость</th>
+                        <th>Статус</th>
+                        <th>Дата создания</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                        <tr>
+                            <td>{{ booking.car.car_model.brand }} {{ booking.car.car_model.model }} ({{ booking.car.year }})</td>
+                            <td>{{ booking.start_date }}</td>
+                            <td>{{ booking.end_date }}</td>
+                            <td>{{ booking.total_price }} руб.</td>
+                            <td>{{ booking.get_status_display }}</td>
+                            <td>{{ booking.created_at|date:"d.m.Y H:i" }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Нет бронирований.</p>
+        {% endif %}
     {% endif %}
 {% endblock %}
