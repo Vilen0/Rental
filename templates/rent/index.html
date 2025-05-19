@@ -25,7 +25,7 @@
                                 <img src="https://placehold.co/300x200" class="card-img-top" alt="No photo">
                             {% endif %}
                             <div class="card-body">
-                                <h5 class="card-title">{{ car.brand }} {{ car.model }} ({{ car.year }})</h5>
+                                <h5 class="card-title">{{ car.car_model.brand }} {{ car.car_model.model }} ({{ car.year }})</h5>
                                 <p class="card-text">
                                     Цена: <strong>{{ car.current_price }} руб./день</strong>
                                     {% if car.has_discount %}
@@ -33,7 +33,7 @@
                                     {% endif %}
                                     <span data-bs-toggle="tooltip" data-bs-placement="top" title="Цена зависит от спроса">ℹ️</span>
                                 </p>
-                                <p class="card-text">Тип кузова: {{ car.get_body_type_display }}</p>
+                                <p class="card-text">Тип кузова: {{ car.car_model.get_body_type_display }}</p>
                                 <a href="{% url 'rent:book_car' car.id %}" class="btn btn-primary">Забронировать</a>
                             </div>
                         </div>
