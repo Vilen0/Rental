@@ -11,4 +11,6 @@ urlpatterns = [
     path('logout/', views.user_logout, name='user_logout'),
     path('about/', views.about, name='about'),
     path('profile/', views.profile, name='profile'),
+    path('add-car/', views.add_car, name='add_car'),
+    path('edit-car/<int:car_id>/', views.edit_car, name='edit_car'),
 ]

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Booking
+from .models import Booking, Car, CarModel
 from datetime import date
 
 
@@ -23,3 +23,15 @@ class BookingForm(forms.ModelForm):
             if end_date <= start_date:
                 raise forms.ValidationError('Дата окончания должна быть позже даты начала.')
         return cleaned_data
+
+class CarForm(forms.ModelForm):
+    class Meta:
+        model = Car
+        fields = ['car_model', 'year', 'transmission', 'fuel_type', 'min_price', 'max_price', 'current_price', 'photo', 'status']
+        widgets = {
+            'car_model': forms.Select(),
+            'transmission': forms.Select(),
+            'fuel_type': forms.Select(),
+            'status': forms.Select(),
+            'photo': forms.ClearableFileInput(),
+        }

@@ -35,6 +35,9 @@
                                 </p>
                                 <p class="card-text">Тип кузова: {{ car.car_model.get_body_type_display }}</p>
                                 <a href="{% url 'rent:book_car' car.id %}" class="btn btn-primary">Забронировать</a>
+                                {% if user.is_staff or user.groups.all.0.name == 'Managers' %}
+                                    <a href="{% url 'rent:edit_car' car.id %}" class="btn btn-warning">Редактировать</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

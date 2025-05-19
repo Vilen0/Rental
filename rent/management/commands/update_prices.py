@@ -15,7 +15,7 @@ class Command(BaseCommand):
         S_max = 30  # Максимум дней простоя
         w_D = 0.7   # Вес занятых дней
         w_S = 0.3   # Вес простоя
-        max_price_change = Decimal('1000.00')  # Ограничение ±100 руб./день
+        max_price_change = Decimal('200.00')  # Ограничение ±200 руб./день
 
         for car in Car.objects.all():
             try:
@@ -50,7 +50,10 @@ class Command(BaseCommand):
                     new_price = middle_price
 
                 # Округлить до 2 знаков
-                new_price = new_price.quantize(Decimal('0.01'))
+                #new_price = new_price.quantize(Decimal('0.01'))
+
+                # Округлить до ближайших 50 рублей
+                new_price = (new_price / 50).quantize(Decimal('1'), rounding='ROUND_HALF_UP') * 50
 
                 # Обновить цену, если изменилась
                 if car.current_price != new_price:
