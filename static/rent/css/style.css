@@ -35,3 +35,103 @@ footer {
     padding: 1rem 0;
     margin-top: auto;
 }
+
+/* Стили для ссылок сортировки */
+.sort-link {
+    color: #005555; /* Тёмно-зелёный цвет для ссылок */
+    text-decoration: none; /* Убираем стандартное подчёркивание */
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+.sort-link:hover {
+    color: #00ff00; /* Ярко-зелёный при наведении */
+    text-decoration: none;
+}
+
+/* Подчёркивание для активного столбца сортировки */
+.sort-link i {
+    margin-left: 5px;
+    font-size: 0.9em;
+    color: #00ff00; /* Зелёный цвет иконки */
+}
+
+/* Лёгкий фон для активного столбца */
+th:has(.sort-link i) {
+    background-color: #e6f3e6; /* Светло-зелёный фон */
+}
+
+/* Выравнивание иконок */
+.sort-link i.bi {
+    vertical-align: middle;
+}
+
+/* Общие стили для таблицы */
+.table th {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Стили для ссылок сортировки */
+.sort-link {
+    color: #005555; /* Тёмно-зелёный цвет для ссылок */
+    text-decoration: none; /* Убираем стандартное подчёркивание */
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+.sort-link:hover {
+    color: #00ff00; /* Ярко-зелёный при наведении */
+    text-decoration: none;
+}
+
+/* Подчёркивание для активного столбца сортировки */
+.sort-link i {
+    margin-left: 5px;
+    font-size: 0.9em;
+    color: #00ff00; /* Зелёный цвет иконки */
+}
+
+/* Лёгкий фон для активного столбца */
+th:has(.sort-link i) {
+    background-color: #e6f3e6; /* Светло-зелёный фон */
+}
+
+/* Выравнивание иконок */
+.sort-link i.bi {
+    vertical-align: middle;
+}
+
+/* Общие стили для таблицы */
+.table th {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Адаптивные стили для таблиц на мобильных устройствах */
+@media (max-width: 576px) {
+    .table-responsive {
+        -webkit-overflow-scrolling: touch; /* Плавная прокрутка на iOS */
+    }
+
+    .table th, .table td {
+        font-size: 0.85rem; /* Уменьшаем шрифт */
+        padding: 0.5rem; /* Уменьшаем отступы */
+        white-space: nowrap; /* Предотвращаем перенос текста */
+    }
+
+    /* Визуальная индикация прокрутки (тень справа) */
+    .table-responsive {
+        position: relative;
+        box-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, 0.1); /* Тень слева */
+    }
+
+    .table-responsive::-webkit-scrollbar {
+        height: 8px; /* Тонкая полоса прокрутки */
+    }
+
+    .table-responsive::-webkit-scrollbar-thumb {
+        background-color: #005555; /* Цвет ползунка */
+        border-radius: 4px;
+    }
+}
