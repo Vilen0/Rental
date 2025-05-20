@@ -9,7 +9,7 @@
         <!-- Управление пользователями -->
         <h2>Управление пользователями</h2>
         {% if users %}
-            <table class="table table-striped">
+            <table class="table table-striped table-responsive w-100" aria-label="Таблица управления пользователями">
                 <thead>
                     <tr>
                         <th>Имя пользователя</th>
@@ -43,7 +43,7 @@
         <!-- Управление бронированиями -->
         <h2>Управление бронированиями</h2>
         {% if all_bookings %}
-            <table class="table table-striped">
+            <table class="table table-striped table-responsive w-100" aria-label="Прокручиваемая таблица бронирований">
                 <thead>
                     <tr>
                         <th>
@@ -116,7 +116,7 @@
         <!-- Для обычных пользователей -->
         <h2>Активные аренды</h2>
         {% if active_bookings %}
-            <table class="table table-striped">
+            <table class="table table-striped table-responsive w-100" aria-label="Прокручиваемая таблица активных аренд">
                 <thead>
                     <tr>
                         <th>Автомобиль</th>
@@ -146,7 +146,7 @@
 
         <h2>История бронирований</h2>
         {% if bookings %}
-            <table class="table table-striped table-responsive">
+            <table class="table table-striped table-responsive w-100" aria-label="Прокручиваемая таблица истории бронирований">
                 <thead>
                     <tr>
                         <th>Автомобиль</th>
