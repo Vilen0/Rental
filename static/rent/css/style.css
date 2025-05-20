@@ -41,31 +41,21 @@ th:has(.sort-link i) {
 /* Адаптивные стили для таблиц на мобильных устройствах */
 @media (max-width: 576px) {
     .table-responsive {
-        -webkit-overflow-scrolling: touch; /* Плавная прокрутка на iOS */
-    }
-
-    .table th, .table td {
+        -webkit-overflow-scrolling: touch; /* Плавная прокрутка на iOS */}
+.table th, .table td {
         font-size: 0.85rem; /* Уменьшаем шрифт */
         padding: 0.5rem; /* Уменьшаем отступы */
-        white-space: nowrap; /* Предотвращаем перенос текста */
-    }
-
-    /* Визуальная индикация прокрутки (тень справа) */
+        white-space: nowrap; /* Предотвращаем перенос текста */}
+/* Визуальная индикация прокрутки (тень справа) */
     .table-responsive {
         position: relative;
-        box-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, 0.1); /* Тень слева */
-    }
-
-    .table-responsive::-webkit-scrollbar {
-        height: 8px; /* Тонкая полоса прокрутки */
-    }
-
-    .table-responsive::-webkit-scrollbar-thumb {
+        box-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, 0.1); /* Тень слева */}
+.table-responsive::-webkit-scrollbar {
+        height: 8px; /* Тонкая полоса прокрутки */}
+.table-responsive::-webkit-scrollbar-thumb {
         background-color: #005555; /* Цвет ползунка */
-        border-radius: 4px;
-    }
-
-    /* Адаптивные стили для таблиц на мобильных устройствах */
+        border-radius: 4px;}
+/* Адаптивные стили для таблиц на мобильных устройствах */
     @media (max-width: 576px) {
         .table-responsive {
             -webkit-overflow-scrolling: touch; /* Плавная прокрутка на iOS */
@@ -155,36 +145,726 @@ th:has(.sort-link i) {
                 text-overflow: ellipsis;
                 white-space: normal; /* Разрешаем перенос текста во всех столбцах */
             }
+
+            /* Общие стили для таблицы */
+            .table th {
+                font-weight: 600;
+            }
+
+            /* Стили для header и footer */
+            .navbar, footer {
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+
+            /* Адаптивные стили для таблиц на мобильных устройствах */
+            @media (max-width: 576px) {
+                .container {
+                    padding-left: 15px;
+                    padding-right: 15px;
+                }
+
+                .table-responsive {
+                    -webkit-overflow-scrolling: touch; /* Плавная прокрутка на iOS */
+                    max-width: 100%; /* Ограничиваем ширину таблицы */
+                    overflow-x: auto; /* Принудительная горизонтальная прокрутка */
+                    display: block; /* Для корректной работы прокрутки */
+                    width: 100%; /* Таблица занимает ширину контейнера */
+                    box-sizing: border-box;
+                }
+
+                .table {
+                    width: 100%; /* Таблица подстраивается под контейнер */
+                    min-width: 300px; /* Уменьшенная минимальная ширина */
+                    max-width: 100%; /* Не превышает контейнер */
+                }
+
+                .table th, .table td {
+                    font-size: 0.75rem; /* Очень маленький шрифт */
+                    padding: 0.25rem; /* Минимальные отступы */
+                    max-width: 90px; /* Ограничение ширины всех ячеек */
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: normal; /* Разрешаем перенос текста */
+                }
+
+                /* Специфичное ограничение для столбца "Автомобиль" */
+                .table th:nth-child(1), .table td:nth-child(1) {
+                    max-width: 120px;
+                }
+
+                /* Специфичное ограничение для столбца "Пользователь" (менеджер) */
+                .table th:nth-child(2), .table td:nth-child(2) {
+                    max-width: 100px;
+                }
+
+                /* Визуальная индикация прокрутки */
+                .table-responsive {
+                    position: relative;
+                    box-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, 0.15), inset 10px 0 8px -8px rgba(0, 0, 0, 0.15); /* Тени слева и справа */
+                }
+
+                .table {
+                    width: 100%; /* Таблица подстраивается под контейнер */
+                    min-width: 250px; /* Очень маленькая минимальная ширина */
+                    max-width: 100%; /* Не превышает контейнер */
+                }
+
+                .table th, .table td {
+                    font-size: 0.7rem; /* Ещё меньший шрифт */
+                    padding: 0.2rem; /* Минимальные отступы */
+                    max-width: 80px; /* Уменьшенная ширина ячеек */
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: normal; /* Разрешаем перенос текста */
+                }
+
+                /* Специфичное ограничение для столбца "Автомобиль" */
+                .table th:nth-child(1), .table td:nth-child(1) {
+                    max-width: 100px;
+                }
+
+                /* Специфичное ограничение для столбца "Пользователь" (менеджер) */
+                .table th:nth-child(2), .table td:nth-child(2) {
+                    max-width: 90px;
+                }
+
+                /* Компактный столбец "Действия" */
+                .table th:nth-child(6), .table td:nth-child(6) {
+                    max-width: 120px;
+                    min-width: 100px; /* Минимальная ширина для формы */
+                }
+
+                .table td:nth-child(6) form {
+                    display: flex;
+                    flex-wrap: nowrap;
+                    gap: 0.2rem;
+                }
+
+                .table td:nth-child(6) .form-select {
+                    font-size: 0.65rem;
+                    padding: 0.1rem;
+                    max-width: 60px;
+                }
+
+                .table td:nth-child(6) .btn-sm {
+                    font-size: 0.65rem;
+                    padding: 0.1rem 0.3rem;
+                }
+
+                /* Визуальная индикация прокрутки */
+                .table-responsive {
+                    position: relative;
+                    box-shadow: inset -15px 0 12px -10px rgba(0, 0, 0, 0.2), inset 15px 0 12px -10px rgba(0, 0, 0, 0.2); /* Более заметные тени */
+                }
+
+                .table-responsive::-webkit-scrollbar {
+                    height: 10px; /* Чуть толще полоса прокрутки */
+                }
+
+                .table-responsive::-webkit-scrollbar-thumb {
+                    background-color: #005555; /* Цвет ползунка */
+                    border-radius: 5px;
+                }
+
+                /* Общие стили для таблицы */
+                .table th {
+                    font-weight: 600;
+                }
+
+                /* Стили для header и footer */
+                .navbar, footer {
+                    width: 100%;
+                    max-width: 100%;
+                    box-sizing: border-box;
+                }
+
+                /* Адаптивные стили для таблиц на мобильных устройствах */
+                @media (max-width: 576px) {
+                    .container {
+                        padding-left: 15px;
+                        padding-right: 15px;
+                    }
+
+                    .table-responsive {
+                        -webkit-overflow-scrolling: touch;
+                        max-width: 100%;
+                        overflow-x: auto;
+                        display: block;
+                        width: 100%;
+                        box-sizing: border-box;
+                    }
+
+                    .table {
+                        width: 100%;
+                        min-width: 250px;
+                        max-width: 100%;
+                    }
+
+                    .table th, .table td {
+                        font-size: 0.7rem;
+                        padding: 0.2rem;
+                        max-width: 80px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: normal;
+                    }
+
+                    .table th:nth-child(1), .table td:nth-child(1) {
+                        max-width: 100px;
+                    }
+
+                    .table th:nth-child(2), .table td:nth-child(2) {
+                        max-width: 90px;
+                    }
+
+                    .table th:nth-child(6), .table td:nth-child(6) {
+                        max-width: 120px;
+                        min-width: 100px;
+                    }
+
+                    .table td:nth-child(6) form {
+                        display: flex;
+                        flex-wrap: nowrap;
+                        gap: 0.2rem;
+                    }
+
+                    .table td:nth-child(6) .form-select {
+                        font-size: 0.65rem;
+                        padding: 0.1rem;
+                        max-width: 60px;
+                    }
+
+                    .table td:nth-child(6) .btn-sm {
+                        font-size: 0.65rem;
+                        padding: 0.1rem 0.3rem;
+                    }
+
+                    .table-responsive {
+                        position: relative;
+                        box-shadow: inset -15px 0 12px -10px rgba(0, 0, 0, 0.2), inset 15px 0 12px -10px rgba(0, 0, 0, 0.2);
+                    }
+
+                    .table-responsive::-webkit-scrollbar {
+                        height: 10px;
+                    }
+
+                    .table-responsive::-webkit-scrollbar-thumb {
+                        background-color: #005555;
+                        border-radius: 5px;
+                    }
+
+                    /* Стили для каталога автомобилей */
+                    .car-card {
+                        border: none;
+                        border-radius: 10px;
+                        transition: transform 0.3s ease, box-shadow 0.3s ease;
+                        overflow: hidden;
+                    }
+
+                    .car-card:hover {
+                        transform: translateY(-5px);
+                        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+                    }
+
+                    .image-container {
+                        position: relative;
+                        padding-top: 66.67%; /* Соотношение 3:2 */
+                    }
+
+                    .image-container img {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+
+                    .card-title {
+                        color: #005555;
+                        font-size: 1.25rem;
+                        margin-bottom: 0.75rem;
+                    }
+
+                    .card-text {
+                        color: #333;
+                        font-size: 0.95rem;
+                    }
+
+                    .discount-badge {
+                        font-size: 0.75rem;
+                        padding: 0.3em 0.6em;
+                        animation: pulse 2s infinite;
+                    }
+
+                    @keyframes pulse {
+                        0% {
+                            transform: scale(1);
+                        }
+                        50% {
+                            transform: scale(1.1);
+                        }
+                        100% {
+                            transform: scale(1);
+                        }
+                    }
+                    .btn-book {
+                        background-color: #005555;
+                        border-color: #005555;
+                        transition: background-color 0.3s ease, transform 0.2s ease;
+                    }
+
+                    .btn-book:hover {
+                        background-color: #003737;
+                        transform: scale(1.05);
+                    }
+
+                    .btn-edit {
+                        transition: background-color 0.3s ease, transform 0.2s ease;
+                    }
+
+                    .btn-edit:hover {
+                        background-color: #e0a800;
+                        transform: scale(1.05);
+                    }
+
+                    .filter-sidebar {
+                        border-radius: 8px;
+                        background-color: #f8f9fa;
+                    }
+
+                    .filter-sidebar .card-header {
+                        border-radius: 8px 8px 0 0;
+                    }
+
+                    .filter-sidebar .form-control,
+                    .filter-sidebar .form-select {
+                        font-size: 0.9rem;
+                        margin-bottom: 0.5rem;
+                    }
+
+                    .filter-sidebar .btn {
+                        font-size: 0.9rem;
+                    }
+
+                    .custom-tooltip .tooltip-inner {
+                        background-color: #005555;
+                        color: #fff;
+                        font-size: 0.85rem;
+                        border-radius: 5px;
+                    }
+
+                    .custom-tooltip .tooltip-arrow::before {
+                        border-top-color: #005555;
+                    }
+
+                    @media (max-width: 767px) {
+                        .car-card {
+                            margin-bottom: 1.5rem;
+                        }
+
+                        .card-title {
+                            font-size: 1.1rem;
+                        }
+
+                        .card-text {
+                            font-size: 0.85rem;
+                        }
+
+                        .btn-book, .btn-edit {
+                            font-size: 0.85rem;
+                            padding: 0.4rem;
+                        }
+
+                        .filter-sidebar {
+                            margin-bottom: 1.5rem;
+                        }
+
+                        .filter-sidebar .card-body {
+                            padding: 1rem;
+                        }
+
+                        @media (max-width: 576px) {
+                            h1 {
+                                font-size: 1.75rem;
+                            }
+
+                            .pagination .page-link {
+                                font-size: 0.85rem;
+                                padding: 0.4rem 0.6rem;
+                            }
+
+                            /* Стили для ссылок сортировки */
+                            .sort-link {
+                                color: #005555;
+                                text-decoration: none;
+                                position: relative;
+                                transition: color 0.2s ease;
+                            }
+
+                            .sort-link:hover {
+                                color: #00ff00;
+                                text-decoration: none;
+                            }
+
+                            .sort-link i {
+                                margin-left: 5px;
+                                font-size: 0.9em;
+                                color: #00ff00;
+                            }
+
+                            th:has(.sort-link i) {
+                                background-color: #e6f3e6;
+                            }
+
+                            .sort-link i.bi {
+                                vertical-align: middle;
+                            }
+
+                            /* Общие стили для таблицы */
+                            .table th {
+                                font-weight: 600;
+                            }
+
+                            /* Стили для header и footer */
+                            .navbar, footer {
+                                width: 100%;
+                                max-width: 100%;
+                                box-sizing: border-box;
+                            }
+
+                            /* Адаптивные стили для таблиц на мобильных устройствах */
+                            @media (max-width: 576px) {
+                                .container {
+                                    padding-left: 15px;
+                                    padding-right: 15px;
+                                }
+
+                                .table-responsive {
+                                    -webkit-overflow-scrolling: touch;
+                                    max-width: 100%;
+                                    overflow-x: auto;
+                                    display: block;
+                                    width: 100%;
+                                    box-sizing: border-box;
+                                }
+
+                                .table {
+                                    width: 100%;
+                                    min-width: 250px;
+                                    max-width: 100%;
+                                }
+
+                                .table th, .table td {
+                                    font-size: 0.7rem;
+                                    padding: 0.2rem;
+                                    max-width: 80px;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    white-space: normal;
+                                }
+
+                                .table th:nth-child(1), .table td:nth-child(1) {
+                                    max-width: 100px;
+                                }
+
+                                .table th:nth-child(2), .table td:nth-child(2) {
+                                    max-width: 90px;
+                                }
+
+                                .table th:nth-child(6), .table td:nth-child(6) {
+                                    max-width: 120px;
+                                    min-width: 100px;
+                                }
+
+                                .table td:nth-child(6) form {
+                                    display: flex;
+                                    flex-wrap: nowrap;
+                                    gap: 0.2rem;
+                                }
+
+                                .table td:nth-child(6) .form-select {
+                                    font-size: 0.65rem;
+                                    padding: 0.1rem;
+                                    max-width: 60px;
+                                }
+
+                                .table td:nth-child(6) .btn-sm {
+                                    font-size: 0.65rem;
+                                    padding: 0.1rem 0.3rem;
+                                }
+
+                                .table-responsive {
+                                    position: relative;
+                                    box-shadow: inset -15px 0 12px -10px rgba(0, 0, 0, 0.2), inset 15px 0 12px -10px rgba(0, 0, 0, 0.2);
+                                }
+
+                                .table-responsive::-webkit-scrollbar {
+                                    height: 10px;
+                                }
+
+                                .table-responsive::-webkit-scrollbar-thumb {
+                                    background-color: #005555;
+                                    border-radius: 5px;
+                                }
+
+                                /* Стили для каталога автомобилей */
+                                .car-card {
+                                    border: none;
+                                    border-radius: 10px;
+                                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                                    overflow: hidden;
+                                }
+
+                                .car-card:hover {
+                                    transform: translateY(-5px);
+                                    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+                                }
+
+                                .image-container {
+                                    position: relative;
+                                    padding-top: 66.67%;
+                                }
+
+                                .image-container img {
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    width: 100%;
+                                    height: 100%;
+                                    object-fit: cover;
+                                }
+
+                                .card-title {
+                                    color: #005555;
+                                    font-size: 1.25rem;
+                                    margin-bottom: 0.75rem;
+                                }
+
+                                .card-text {
+                                    color: #333;
+                                    font-size: 0.95rem;
+                                }
+
+                                .discount-badge {
+                                    font-size: 0.75rem;
+                                    padding: 0.3em 0.6em;
+                                    animation: pulse 2s infinite;
+                                }
+
+                                @keyframes pulse {
+                                    0% {
+                                        transform: scale(1);
+                                    }
+                                    50% {
+                                        transform: scale(1.1);
+                                    }
+                                    100% {
+                                        transform: scale(1);
+                                    }
+                                }
+                                .btn-book {
+                                    background-color: #005555;
+                                    border-color: #005555;
+                                    transition: background-color 0.3s ease, transform 0.2s ease;
+                                }
+
+                                .btn-book:hover {
+                                    background-color: #003737;
+                                    transform: scale(1.05);
+                                }
+
+                                .btn-edit {
+                                    transition: background-color 0.3s ease, transform 0.2s ease;
+                                }
+
+                                .btn-edit:hover {
+                                    background-color: #e0a800;
+                                    transform: scale(1.05);
+                                }
+
+                                .filter-sidebar {
+                                    border-radius: 8px;
+                                    background-color: #f8f9fa;
+                                }
+
+                                .filter-sidebar .card-header {
+                                    border-radius: 8px 8px 0 0;
+                                }
+
+                                .filter-sidebar .form-control,
+                                .filter-sidebar .form-select {
+                                    font-size: 0.9rem;
+                                    margin-bottom: 0.5rem;
+                                }
+
+                                .filter-sidebar .btn {
+                                    font-size: 0.9rem;
+                                }
+
+                                .custom-tooltip .tooltip-inner {
+                                    background-color: #005555;
+                                    color: #fff;
+                                    font-size: 0.85rem;
+                                    border-radius: 5px;
+                                }
+
+                                .custom-tooltip .tooltip-arrow::before {
+                                    border-top-color: #005555;
+                                }
+
+                                /* Стили для страницы "О нас" */
+                                .about-section {
+                                    background-color: #f8f9fa;
+                                }
+
+                                .advantage-card {
+                                    border: none;
+                                    border-radius: 8px;
+                                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                                }
+
+                                .advantage-card:hover {
+                                    transform: translateY(-5px);
+                                    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+                                }
+
+                                .team-card {
+                                    border: none;
+                                    border-radius: 8px;
+                                    overflow: hidden;
+                                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                                }
+
+                                .team-card:hover {
+                                    transform: translateY(-5px);
+                                    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+                                }
+
+                                .team-card img {
+                                    object-fit: cover;
+                                    height: 200px;
+                                }
+
+                                .btn-contact {
+                                    background-color: #005555;
+                                    border-color: #005555;
+                                    transition: background-color 0.3s ease, transform 0.2s ease;
+                                }
+
+                                .btn-contact:hover {
+                                    background-color: #003737;
+                                    transform: scale(1.05);
+                                }
+
+                                .map-container {
+                                    border-radius: 8px;
+                                    overflow: hidden;
+                                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                                }
+
+                                .carousel .card {
+                                    border: none;
+                                    border-radius: 8px;
+                                }
+
+                                .carousel-control-prev, .carousel-control-next {
+                                    width: 5%;
+                                    background: rgba(0, 0, 0, 0.3);
+                                }
+
+                                @media (max-width: 767px) {
+                                    .about-section {
+                                        padding: 2rem 0;
+                                    }
+
+                                    h1 {
+                                        font-size: 1.75rem;
+                                    }
+
+                                    h2 {
+                                        font-size: 1.5rem;
+                                    }
+
+                                    .lead {
+                                        font-size: 1rem;
+                                    }
+
+                                    .advantage-card, .team-card {
+                                        margin-bottom: 1rem;
+                                    }
+
+                                    .team-card img {
+                                        height: 150px;
+                                    }
+
+                                    .btn-contact {
+                                        font-size: 0.9rem;
+                                        padding: 0.5rem 1rem;
+                                    }
+
+                                    @media (max-width: 576px) {
+                                        h1 {
+                                            font-size: 1.5rem;
+                                        }
+
+                                        h2 {
+                                            font-size: 1.25rem;
+                                        }
+
+                                        .carousel .card {
+                                            max-width: 90%;
+                                        }
+
+                                        @media (max-width: 767px) {
+                                            .about-section {
+                                                padding: 1.5rem 0;
+                                            }
+
+                                            .advantage-card {
+                                                margin-bottom: 1rem;
+                                            }
+
+                                            .advantage-card .display-4 {
+                                                font-size: 2rem;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
 
+
 /* Стили для ссылок сортировки */
 .sort-link {
-    color: #005555; /* Тёмно-зелёный цвет для ссылок */
-    text-decoration: none; /* Убираем стандартное подчёркивание */
-    position: relative;
+    color: #005555;
+    text-decoration: none;
     transition: color 0.2s ease;
 }
 
 .sort-link:hover {
-    color: #00ff00; /* Ярко-зелёный при наведении */
+    color: #00ff00;
     text-decoration: none;
 }
 
-/* Подчёркивание для активного столбца сортировки */
 .sort-link i {
     margin-left: 5px;
     font-size: 0.9em;
-    color: #00ff00; /* Зелёный цвет иконки */
+    color: #00ff00;
 }
 
-/* Лёгкий фон для активного столбца */
 th:has(.sort-link i) {
-    background-color: #e6f3e6; /* Светло-зелёный фон */
+    background-color: #e6f3e6;
 }
 
-/* Выравнивание иконок */
 .sort-link i.bi {
     vertical-align: middle;
 }
@@ -201,7 +881,7 @@ th:has(.sort-link i) {
     box-sizing: border-box;
 }
 
-/* Адаптивные стили для таблиц на мобильных устройствах */
+/* Адаптивные стили для таблиц на мобильных устройств */
 @media (max-width: 576px) {
     .container {
         padding-left: 15px;
@@ -209,51 +889,441 @@ th:has(.sort-link i) {
     }
 
     .table-responsive {
-        -webkit-overflow-scrolling: touch; /* Плавная прокрутка на iOS */
-        max-width: 100%; /* Ограничиваем ширину таблицы */
-        overflow-x: auto; /* Принудительная горизонтальная прокрутка */
-        display: block; /* Для корректной работы прокрутки */
-        width: 100%; /* Таблица занимает ширину контейнера */
+        -webkit-overflow-scrolling: touch;
+        max-width: 100%;
+        overflow-x: auto;
+        display: block;
+        width: 100%;
         box-sizing: border-box;
     }
 
     .table {
-        width: 100%; /* Таблица подстраивается под контейнер */
-        min-width: 300px; /* Уменьшенная минимальная ширина */
-        max-width: 100%; /* Не превышает контейнер */
+        width: 100%;
+        min-width: 250px;
+        max-width: 100%;
     }
 
     .table th, .table td {
-        font-size: 0.75rem; /* Очень маленький шрифт */
-        padding: 0.25rem; /* Минимальные отступы */
-        max-width: 90px; /* Ограничение ширины всех ячеек */
+        font-size: 0.7rem;
+        padding: 0.2rem;
+        max-width: 80px;
         overflow: hidden;
         text-overflow: ellipsis;
-        white-space: normal; /* Разрешаем перенос текста */
+        white-space: normal;
     }
 
-    /* Специфичное ограничение для столбца "Автомобиль" */
     .table th:nth-child(1), .table td:nth-child(1) {
-        max-width: 120px;
-    }
-
-    /* Специфичное ограничение для столбца "Пользователь" (менеджер) */
-    .table th:nth-child(2), .table td:nth-child(2) {
         max-width: 100px;
     }
 
-    /* Визуальная индикация прокрутки */
+    .table th:nth-child(2), .table td:nth-child(2) {
+        max-width: 90px;
+    }
+
+    .table th:nth-child(6), .table td:nth-child(6) {
+        max-width: 120px;
+        min-width: 100px;
+    }
+
+    .table td:nth-child(6) form {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 0.2rem;
+    }
+
+    .table td:nth-child(6) .form-select {
+        font-size: 0.65rem;
+        padding: 0.1rem;
+        max-width: 60px;
+    }
+
+    .table td:nth-child(6) .btn-sm {
+        font-size: 0.65rem;
+        padding: 0.1rem 0.3rem;
+    }
+
     .table-responsive {
         position: relative;
-        box-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, 0.15), inset 10px 0 8px -8px rgba(0, 0, 0, 0.15); /* Тени слева и справа */
+        box-shadow: inset -15px 0 12px -10px rgba(0, 0, 0, 0.2), inset 15px 0 12px -10px rgba(0, 0, 0, 0.2);
     }
 
     .table-responsive::-webkit-scrollbar {
-        height: 8px; /* Тонкая полоса прокрутки */
+        height: 10px;
     }
 
     .table-responsive::-webkit-scrollbar-thumb {
-        background-color: #005555; /* Цвет ползунка */
-        border-radius: 4px;
+        background-color: #005555;
+        border-radius: 5px;
+    }
+}
+
+/* Стили для страницы профиля */
+.profile-section {
+    background-color: #f8f9fa;
+}
+
+.card {
+    border: none;
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    border-radius: 8px 8px 0 0;
+}
+
+.table {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table th {
+    background-color: #e6f3e6;
+    color: #005555;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f8f1;
+}
+
+.badge {
+    font-size: 0.8rem;
+    padding: 0.4em 0.8em;
+}
+
+.status-select {
+    font-size: 0.85rem;
+    padding: 0.2rem;
+    max-width: 100px;
+}
+
+.status-btn, .toggle-user-btn, .cancel-booking-btn {
+    transition: transform 0.2s ease;
+}
+
+.status-btn:hover, .toggle-user-btn:hover, .cancel-booking-btn:hover {
+    transform: scale(1.05);
+}
+
+.export-csv-btn {
+    transition: background-color 0.3s ease;
+}
+
+.export-csv-btn:hover {
+    background-color: #005555;
+    color: #fff;
+}
+
+#userSearch, #bookingSearch {
+    font-size: 0.9rem;
+    border-radius: 5px;
+}
+
+@media (max-width: 767px) {
+    .profile-section {
+        padding: 1.5rem 0;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .card {
+        margin-bottom: 1rem;
+    }
+
+    .status-select, .status-btn {
+        font-size: 0.75rem;
+    }
+
+    .table th:nth-child(3), .table td:nth-child(3),
+    .table th:nth-child(4), .table td:nth-child(4) {
+        display: none; /* Скрываем "Дата начала" и "Дата окончания" на мобильных */
+    }
+}
+
+@media (max-width: 576px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    .table th, .table td {
+        font-size: 0.65rem;
+    }
+}
+
+
+/* Стили для ссылок сортировки */
+.sort-link {
+    color: #005555;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.sort-link:hover {
+    color: #00ff00;
+    text-decoration: none;
+}
+
+.sort-link i {
+    margin-left: 5px;
+    font-size: 0.9em;
+    color: #00ff00;
+}
+
+th:has(.sort-link i) {
+    background-color: #e6f3e6;
+}
+
+.sort-link i.bi {
+    vertical-align: middle;
+}
+
+/* Общие стили для таблицы */
+.table th {
+    font-weight: 600;
+}
+
+/* Стили для header и footer */
+.navbar, footer {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Адаптивные стили для таблиц на мобильных устройств */
+@media (max-width: 576px) {
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .table-responsive {
+        -webkit-overflow-scrolling: touch;
+        max-width: 100%;
+        overflow-x: auto;
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .table {
+        width: 100%;
+        min-width: 250px;
+        max-width: 100%;
+    }
+
+    .table th, .table td {
+        font-size: 0.7rem;
+        padding: 0.2rem;
+        max-width: 80px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+    }
+
+    .table th:nth-child(1), .table td:nth-child(1) {
+        max-width: 100px;
+    }
+
+    .table th:nth-child(2), .table td:nth-child(2) {
+        max-width: 90px;
+    }
+
+    .table th:nth-child(6), .table td:nth-child(6) {
+        max-width: 120px;
+        min-width: 100px;
+    }
+
+    .table td:nth-child(6) form {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 0.2rem;
+    }
+
+    .table td:nth-child(6) .form-select {
+        font-size: 0.65rem;
+        padding: 0.1rem;
+        max-width: 60px;
+    }
+
+    .table td:nth-child(6) .btn-sm {
+        font-size: 0.65rem;
+        padding: 0.1rem 0.3rem;
+    }
+
+    .table-responsive {
+        position: relative;
+        box-shadow: inset -15px 0 12px -10px rgba(0, 0, 0, 0.2), inset 15px 0 12px -10px rgba(0, 0, 0, 0.2);
+    }
+
+    .table-responsive::-webkit-scrollbar {
+        height: 10px;
+    }
+
+    .table-responsive::-webkit-scrollbar-thumb {
+        background-color: #005555;
+        border-radius: 5px;
+    }
+}
+
+/* Стили для страницы профиля */
+.profile-section {
+    background-color: #f8f9fa;
+}
+
+.card {
+    border: none;
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    border-radius: 8px 8px 0 0;
+}
+
+.table {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table th {
+    background-color: #e6f3e6;
+    color: #005555;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f8f1;
+}
+
+.badge {
+    font-size: 0.8rem;
+    padding: 0.4em 0.8em;
+}
+
+.status-select {
+    font-size: 0.85rem;
+    padding: 0.2rem;
+    max-width: 100px;
+}
+
+.status-btn, .toggle-user-btn, .cancel-booking-btn {
+    transition: transform 0.2s ease;
+}
+
+.status-btn:hover, .toggle-user-btn:hover, .cancel-booking-btn:hover {
+    transform: scale(1.05);
+}
+
+.export-csv-btn {
+    transition: background-color 0.3s ease;
+}
+
+.export-csv-btn:hover {
+    background-color: #005555;
+    color: #fff;
+}
+
+#userSearch, #bookingSearch {
+    font-size: 0.9rem;
+    border-radius: 5px;
+}
+
+/* Стили для формы изменения статуса */
+.update-status-form {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.table th:last-child, .table td:last-child {
+    min-width: 160px; /* Минимальная ширина столбца "Действия" */
+    white-space: nowrap;
+}
+
+.form-select-sm {
+    max-width: 100px;
+    font-size: 0.85rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.btn-sm.status-btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+}
+
+@media (max-width: 767px) {
+    .profile-section {
+        padding: 1.5rem 0;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .card {
+        margin-bottom: 1rem;
+    }
+
+    .status-select, .status-btn {
+        font-size: 0.75rem;
+    }
+
+    .table th:nth-child(3), .table td:nth-child(3),
+    .table th:nth-child(4), .table td:nth-child(4) {
+        display: none; /* Скрываем "Дата начала" и "Дата окончания" на мобильных */
+    }
+
+    .update-status-form {
+        gap: 0.3rem;
+    }
+
+    .form-select-sm {
+        max-width: 80px;
+        font-size: 0.75rem;
+        padding: 0.2rem 0.4rem;
+    }
+
+    .btn-sm.status-btn {
+        font-size: 0.75rem;
+        padding: 0.2rem 0.4rem;
+    }
+}
+
+@media (max-width: 576px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    .table th, .table td {
+        font-size: 0.65rem;
+    }
+
+    .table th:last-child, .table td:last-child {
+        min-width: 140px; /* Уменьшаем ширину для мобильных */
     }
 }

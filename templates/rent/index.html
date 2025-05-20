@@ -4,54 +4,123 @@
 {% block title %}Каталог автомобилей{% endblock %}
 
 {% block content %}
-    <h1>Каталог автомобилей</h1>
+    <h1 class="mb-4 text-center fw-bold text-primary">Каталог автомобилей</h1>
     <div class="row">
         <!-- Фильтры -->
-        <div class="col-md-3">
-            <form method="get">
-                {{ filter.form.as_p }}
-                <button type="submit" class="btn btn-primary">Применить</button>
-            </form>
+        <div class="col-md-3 mb-4">
+            <div class="card filter-sidebar shadow-sm">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <span>Фильтры</span>
+                    <button class="btn btn-sm btn-light d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#filterCollapse" aria-expanded="false" aria-controls="filterCollapse">
+                        <i class="bi bi-funnel"></i>
+                    </button>
+                </div>
+                <div class="card-body collapse show" id="filterCollapse">
+                    <form method="get" id="filterForm">
+                        {{ filter.form.as_p }}
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary w-100">Применить</button>
+                            <a href="{% url 'rent:car_list' %}" class="btn btn-outline-secondary w-100">Сбросить</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
         <!-- Список автомобилей -->
         <div class="col-md-9">
-            <div class="row">
+            <div class="row" id="carList">
                 {% for car in cars %}
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100">
-                            {% if car.photo %}
-                                <img src="{{ car.photo.url }}" class="card-img-top" alt="{{ car }}">
-                            {% else %}
-                                <img src="https://placehold.co/300x200" class="card-img-top" alt="No photo">
-                            {% endif %}
-                            <div class="card-body">
-                                <h5 class="card-title">{{ car.car_model.brand }} {{ car.car_model.model }} ({{ car.year }})</h5>
-                                <p class="card-text">
+                    <div class="col-md-4 col-sm-6 mb-4">
+                        <div class="card h-100 shadow-sm car-card">
+                            <div class="image-container">
+                                {% if car.photo %}
+                                    <img src="{{ car.photo.url }}" class="card-img-top" alt="{{ car.car_model.brand }} {{ car.car_model.model }}">
+                                {% else %}
+                                    <img src="https://placehold.co/300x200?text=Нет+фото" class="card-img-top" alt="Нет фото">
+                                {% endif %}
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title fw-bold">{{ car.car_model.brand }} {{ car.car_model.model }} ({{ car.year }})</h5>
+                                <p class="card-text mb-2">
                                     Цена: <strong>{{ car.current_price }} руб./день</strong>
                                     {% if car.has_discount %}
-                                        <span class="badge bg-success">Скидка!</span>
+                                        <span class="badge bg-success discount-badge">Скидка!</span>
                                     {% endif %}
-                                    <span data-bs-toggle="tooltip" data-bs-placement="top" title="Цена зависит от спроса">ℹ️</span>
+                                    <i class="bi bi-info-circle text-primary ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Цена зависит от спроса"></i>
                                 </p>
-                                <p class="card-text">Тип кузова: {{ car.car_model.get_body_type_display }}</p>
-                                <a href="{% url 'rent:book_car' car.id %}" class="btn btn-primary">Забронировать</a>
-                                {% if user.is_staff or user.groups.all.0.name == 'Managers' %}
-                                    <a href="{% url 'rent:edit_car' car.id %}" class="btn btn-warning">Редактировать</a>
-                                {% endif %}
+                                <p class="card-text mb-3">Тип кузова: {{ car.car_model.get_body_type_display }}</p>
+                                <div class="mt-auto d-flex gap-2">
+                                    <a href="{% url 'rent:book_car' car.id %}" class="btn btn-primary w-100 btn-book">Забронировать</a>
+                                    {% if user.is_staff or user.groups.all.0.name == 'Managers' %}
+                                        <a href="{% url 'rent:edit_car' car.id %}" class="btn btn-warning w-100 btn-edit">Редактировать</a>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                     </div>
                 {% empty %}
-                    <p>Нет доступных автомобилей.</p>
+                    <div class="col-12">
+                        <div class="alert alert-info text-center">
+                            Нет доступных автомобилей. Попробуйте изменить фильтры.
+                        </div>
+                    </div>
                 {% endfor %}
             </div>
+            <!-- Пагинация -->
+            {% if page_obj %}
+                <nav aria-label="Пагинация каталога">
+                    <ul class="pagination justify-content-center mt-4">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" aria-label="Предыдущая">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link">&laquo;</span>
+                            </li>
+                        {% endif %}
+                        {% for num in page_obj.paginator.page_range %}
+                            {% if page_obj.number == num %}
+                                <li class="page-item active" aria-current="page">
+                                    <span class="page-link">{{ num }}</span>
+                                </li>
+                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ num }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" aria-label="Следующая">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link">&raquo;</span>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}
         </div>
     </div>
     <script>
         // Инициализация tooltip
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl)
-        })
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        tooltipTriggerList.forEach(tooltipTriggerEl => {
+            new bootstrap.Tooltip(tooltipTriggerEl, {
+                customClass: 'custom-tooltip'
+            });
+        });
+
+        // Спиннер при отправке формы
+        document.getElementById('filterForm').addEventListener('submit', function() {
+            const carList = document.getElementById('carList');
+            carList.innerHTML = '<div class="text-center my-5"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Загрузка...</span></div></div>';
+        });
     </script>
 {% endblock %}

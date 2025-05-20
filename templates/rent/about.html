@@ -4,13 +4,176 @@
 {% block title %}О нас{% endblock %}
 
 {% block content %}
-    <h1>О нас</h1>
-    <p>Car Rental — ваш надёжный партнёр в прокате автомобилей. Мы предлагаем широкий выбор машин по доступным ценам с гибкой системой бронирования.</p>
-    <p>Наши преимущества:</p>
-    <ul>
-        <li>Динамическая цена, зависящая от спроса.</li>
-        <li>Простое бронирование онлайн.</li>
-        <li>Поддержка 24/7.</li>
-    </ul>
-    <p>Свяжитесь с нами: <a href="mailto:info@carrental.ru">info@carrental.ru</a></p>
+    <section class="about-section py-4">
+        <div class="container">
+            <h1 class="text-center fw-bold text-primary mb-4 animate-on-scroll">О нас</h1>
+            <div class="row">
+                <div class="col-md-8 mx-auto text-center">
+                    <p class="lead text-muted mb-4 animate-on-scroll">Car Rental — ваш надёжный партнёр в прокате автомобилей. Мы предлагаем широкий выбор машин по доступным ценам с гибкой системой бронирования.</p>
+                </div>
+            </div>
+
+            <!-- Миссия -->
+            <div class="mission-section mt-4">
+                <h2 class="text-center fw-bold text-secondary mb-4 animate-on-scroll">Наша миссия</h2>
+                <p class="text-center text-muted mx-auto animate-on-scroll" style="max-width: 600px;">Сделать аренду автомобилей удобной и доступной для каждого, обеспечивая комфорт и свободу передвижения.</p>
+            </div>
+
+            <!-- Преимущества -->
+            <h2 class="text-center fw-bold text-secondary mt-4 mb-4 animate-on-scroll">Наши преимущества</h2>
+            <div class="row g-4">
+                <div class="col-md-4 col-sm-6">
+                    <div class="card h-100 shadow-sm advantage-card animate-on-scroll">
+                        <div class="card-body text-center">
+                            <i class="bi bi-bar-chart-line display-4 text-primary mb-3"></i>
+                            <h5 class="card-title fw-bold">Динамическая цена</h5>
+                            <p class="card-text text-muted">Цены зависят от спроса, обеспечивая выгодные предложения.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="card h-100 shadow-sm advantage-card animate-on-scroll">
+                        <div class="card-body text-center">
+                            <i class="bi bi-laptop display-4 text-primary mb-3"></i>
+                            <h5 class="card-title fw-bold">Простое бронирование</h5>
+                            <p class="card-text text-muted">Онлайн-бронирование за несколько кликов.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="card h-100 shadow-sm advantage-card animate-on-scroll">
+                        <div class="card-body text-center">
+                            <i class="bi bi-headset display-4 text-primary mb-3"></i>
+                            <h5 class="card-title fw-bold">Поддержка 24/7</h5>
+                            <p class="card-text text-muted">Мы всегда на связи, чтобы помочь вам.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="card h-100 shadow-sm advantage-card animate-on-scroll">
+                        <div class="card-body text-center">
+                            <i class="bi bi-car-front-fill display-4 text-primary mb-3"></i>
+                            <h5 class="card-title fw-bold">Широкий выбор</h5>
+                            <p class="card-text text-muted">Автомобили на любой вкус и бюджет.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="card h-100 shadow-sm advantage-card animate-on-scroll">
+                        <div class="card-body text-center">
+                            <i class="bi bi-calendar-check display-4 text-primary mb-3"></i>
+                            <h5 class="card-title fw-bold">Гибкие условия</h5>
+                            <p class="card-text text-muted">Аренда от одного дня до нескольких месяцев.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="card h-100 shadow-sm advantage-card animate-on-scroll">
+                        <div class="card-body text-center">
+                            <i class="bi bi-transparency display-4 text-primary mb-3"></i>
+                            <h5 class="card-title fw-bold">Прозрачная цена</h5>
+                            <p class="card-text text-muted">Никаких скрытых платежей и комиссий.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Отзывы -->
+            <h2 class="text-center fw-bold text-secondary mt-4 mb-4 animate-on-scroll">Отзывы клиентов</h2>
+            <div id="reviewsCarousel" class="carousel slide animate-on-scroll" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="card shadow-sm mx-auto" style="max-width: 500px;">
+                            <div class="card-body text-center">
+                                <p class="card-text">"Отличный сервис! Быстро забронировал машину, поддержка ответила моментально."</p>
+                                <h6 class="card-title fw-bold">Алексей К.</h6>
+                                <p class="card-text text-muted small">Москва, 2025</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card shadow-sm mx-auto" style="max-width: 500px;">
+                            <div class="card-body text-center">
+                                <p class="card-text">"Цены приятно удивили, а машина была в идеальном состоянии."</p>
+                                <h6 class="card-title fw-bold">Екатерина М.</h6>
+                                <p class="card-text text-muted small">Санкт-Петербург, 2025</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#reviewsCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Предыдущий</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#reviewsCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Следующий</span>
+                </button>
+            </div>
+
+            <!-- Контакты -->
+            <h2 class="text-center fw-bold text-secondary mt-4 mb-4 animate-on-scroll">Свяжитесь с нами</h2>
+            <div class="text-center animate-on-scroll">
+                <p class="mb-3">По всем вопросам пишите на: <a href="mailto:info@carrental.ru" class="text-primary">info@carrental.ru</a></p>
+                <button class="btn btn-primary btn-contact" data-bs-toggle="modal" data-bs-target="#contactModal">Написать нам</button>
+            </div>
+
+            <!-- Карта -->
+            <h2 class="text-center fw-bold text-secondary mt-4 mb-4 animate-on-scroll">Где нас найти</h2>
+            <div class="map-container animate-on-scroll">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2245.2584662971747!2d37.61556031609361!3d55.75367698055225!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54a5b7b7b7b7b%3A0x7b7b7b7b7b7b7b7b!2sMoscow%2C%20Russia!5e0!3m2!1sen!2sru!4v1634567890123" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Модальное окно для формы связи -->
+    <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contactModalLabel">Связаться с нами</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="contactForm">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Имя</label>
+                            <input type="text" class="form-control" id="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Сообщение</label>
+                            <textarea class="form-control" id="message" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Отправить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Анимация при прокрутке
+        const animateElements = document.querySelectorAll('.animate-on-scroll');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        animateElements.forEach(el => observer.observe(el));
+
+        // Заглушка для отправки формы
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Сообщение отправлено! (Это заглушка, форма требует бэкенда)');
+            bootstrap.Modal.getInstance(document.getElementById('contactModal')).hide();
+        });
+    </script>
 {% endblock %}
