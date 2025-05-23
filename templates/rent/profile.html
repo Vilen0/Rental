@@ -166,11 +166,18 @@
                                                 <td>{{ booking.end_date }}</td>
                                                 <td>{{ booking.total_price }} руб.</td>
                                                 <td>
-                                                    <span class="badge bg-{% if booking.status == 'confirmed' %}warning text-dark{% elif booking.status == 'canceled' %}secondary{% elif booking.status == 'pending' %}danger{% else %}success{% endif %}">
+                                                    <span class="badge bg-{% if booking.status == 'active' %}warning text-dark{% elif booking.status == 'canceled' %}secondary{% elif booking.status == 'pending' %}danger{% else %}success{% endif %}">
                                                         {{ booking.get_status_display }}
                                                     </span>
                                                 </td>
-                                                <td></td>
+                                                <td>
+                                                    {% if booking.status == 'pending' %}
+                                                        <button type="button" class="btn btn-danger btn-sm cancel-booking-btn" data-bs-toggle="modal" data-bs-target="#confirmModal" data-booking-id="{{ booking.id }}">
+                                                            Отменить
+                                                        </button>
+                                                    {% endif %}
+                                                </td>
+
                                             </tr>
                                         {% endfor %}
                                     </tbody>
@@ -197,7 +204,6 @@
                                             <th>Дата окончания</th>
                                             <th>Стоимость</th>
                                             <th>Статус</th>
-                                            <th>Действия</th>
                                             <th>Дата создания</th>
                                         </tr>
                                     </thead>
@@ -213,20 +219,12 @@
                                                         {{ booking.get_status_display }}
                                                     </span>
                                                 </td>
-                                                <td>
-                                                    {% if booking.status == 'pending' %}
-                                                        <button type="button" class="btn btn-danger btn-sm cancel-booking-btn" data-bs-toggle="modal" data-bs-target="#confirmModal" data-booking-id="{{ booking.id }}">
-                                                            Отменить
-                                                        </button>
-                                                    {% endif %}
-                                                </td>
                                                 <td>{{ booking.created_at|date:"d.m.Y H:i" }}</td>
                                             </tr>
                                         {% endfor %}
                                     </tbody>
                                 </table>
                             </div>
-                            <button class="btn btn-outline-primary mt-3 export-csv-btn" data-table="history">Экспорт в CSV</button>
                         {% else %}
                             <p class="text-muted">Нет бронирований.</p>
                         {% endif %}

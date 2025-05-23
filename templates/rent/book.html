@@ -1,25 +1,147 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Бронирование {{ car.brand }} {{ car.model }}{% endblock %}
+{% block title %}Бронирование {{ car.car_model.brand }} {{ car.car_model.model }}{% endblock %}
 
 {% block content %}
-    <h1>Бронирование {{ car.brand }} {{ car.model }} ({{ car.year }})</h1>
-    <div class="row">
-        <div class="col-md-6">
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <p>Цена: <strong>{{ car.current_price }} руб./день</strong></p>
-                <button type="submit" class="btn btn-primary">Забронировать</button>
-            </form>
+    <section class="booking-section py-5 bg-light">
+        <div class="container">
+            <!-- Заголовок -->
+            <h1 class="text-center fw-bold text-primary mb-5 animate-on-scroll animate__animated animate__fadeIn">
+                <i class="bi bi-car-front me-2"></i> Бронирование автомобиля
+            </h1>
+
+            <!-- Основная карточка -->
+            <div class="card shadow-lg mb-5 border-0 animate-on-scroll animate__animated animate__fadeInUp">
+                <div class="card-header bg-primary text-white text-center py-4">
+                    <h2 class="mb-0">{{ car.car_model.brand }} {{ car.car_model.model }} ({{ car.year }})</h2>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row align-items-center">
+                        <!-- Фото автомобиля -->
+                        <div class="col-lg-6 mb-4 mb-lg-0">
+                            <div class="text-center">
+                                {% if car.photo %}
+                                    <img src="{{ car.photo.url }}" class="img-fluid rounded shadow-sm" style="max-height: 400px; object-fit: cover;" alt="{{ car.car_model.brand }} {{ car.car_model.model }}" loading="lazy">
+                                {% else %}
+                                    <img src="https://placehold.co/500x300?text=Нет+фото" class="img-fluid rounded shadow-sm" style="max-height: 400px; object-fit: cover;" alt="Нет фото" loading="lazy">
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Форма бронирования -->
+                        <div class="col-lg-6">
+                            <div class="p-4 bg-white rounded shadow-sm">
+                                <h3 class="h5 fw-bold mb-4">Оформить бронирование</h3>
+                                <form method="post" class="needs-validation" novalidate>
+                                    {% csrf_token %}
+                                    {% for field in form %}
+                                        <div class="mb-3">
+                                            <label for="{{ field.id_for_label }}" class="form-label fw-semibold">{{ field.label }}</label>
+                                            {{ field }}
+                                            {% if field.errors %}
+                                                <div class="invalid-feedback">
+                                                    {% for error in field.errors %}
+                                                        {{ error }}
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                            {% if field.help_text %}
+                                                <small class="form-text text-muted">{{ field.help_text }}</small>
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                    <div class="mb-3">
+                                        <span class="fw-bold fs-5">Цена: </span>
+                                        <span class="fs-5 text-success">{{ car.current_price }} руб./день</span>
+                                        {% if car.has_discount %}
+                                            <span class="badge bg-success ms-2">Скидка!</span>
+                                        {% endif %}
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">Забронировать</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Информация о бронировании -->
+            <div class="card shadow-sm mb-5 border-0 animate-on-scroll animate__animated animate__fadeInUp">
+                <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center py-3">
+                    <h3 class="h5 mb-0"><i class="bi bi-info-circle me-2"></i> Условия бронирования</h3>
+                    <button class="btn btn-sm btn-light d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#conditionsCollapse" aria-expanded="false" aria-controls="conditionsCollapse">
+                        <i class="bi bi-chevron-down"></i>
+                    </button>
+                </div>
+                <div class="card-body collapse show" id="conditionsCollapse">
+                    <div class="row">
+                        <!-- Политика отмены -->
+                        <div class="col-md-6 mb-4">
+                            <h4 class="h6 fw-bold text-danger"><i class="bi bi-exclamation-triangle me-2"></i> Политика отмены</h4>
+                            <p class="text-muted">
+                                Если вы не явитесь в день начала бронирования (до 18:00 по местному времени), бронирование будет автоматически отменено без возврата предоплаты. Пожалуйста, свяжитесь с нами заранее, если требуется изменить даты.
+                            </p>
+                        </div>
+                        <!-- Место получения автомобиля -->
+                        <div class="col-md-6 mb-4">
+                            <h4 class="h6 fw-bold"><i class="bi bi-geo-alt me-2"></i> Где забрать автомобиль</h4>
+                            <p class="text-muted">
+                                <strong>Адрес:</strong> г. Москва, ул. Автомобильная, д. 10, офис 101<br>
+                                <strong>Часы работы:</strong> Пн-Вс, 09:00–18:00<br>
+                                <strong>Контакты:</strong> +7 (495) 123-45-67, <a href="mailto:rent@example.com">rent@example.com</a><br>
+                                Пожалуйста, прибудьте с документами (паспорт, водительское удостоверение) для подписания договора.
+                            </p>
+                        </div>
+                        <!-- Условия оплаты -->
+                        <div class="col-md-6 mb-4">
+                            <h4 class="h6 fw-bold"><i class="bi bi-credit-card me-2"></i> Условия оплаты</h4>
+                            <p class="text-muted">
+                                <strong>Оплата:</strong> Полная сумма аренды оплачивается при подписании договора (наличные или карта).<br>
+                                <strong>Задаток:</strong> Дополнительно вносится задаток, который возвращается после возврата автомобиля при отсутствии повреждений и нарушений условий договора.<br>
+                                Все платежи проходят через защищённую платёжную систему.
+                            </p>
+                        </div>
+                        
+                        <!-- Условия возврата и договора -->
+                        <div class="col-md-6 mb-4">
+                            <h4 class="h6 fw-bold"><i class="bi bi-file-earmark-text me-2"></i> Возврат и договор</h4>
+                            <p class="text-muted">
+                                <strong>Задаток:</strong> Возвращается после осмотра автомобиля и при отсутствии нарушений условий аренды.<br>
+                                <strong>Договор:</strong> Подписывается при получении автомобиля. Необходимы паспорт и водительское удостоверение. В договоре указаны правила использования автомобиля, условия ответственности и возврата.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6">
-            {% if car.photo %}
-                <img src="{{ car.photo.url }}" class="img-fluid" alt="{{ car }}">
-            {% else %}
-                <img src="https://placehold.co/300x200" class="img-fluid" alt="No photo">
-            {% endif %}
-        </div>
-    </div>
+    </section>
+
+    <!-- Валидация формы на стороне клиента -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Анимация при прокрутке
+            const animateElements = document.querySelectorAll('.animate-on-scroll');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate__animated', entry.classList.contains('animate__fadeIn') ? 'animate__fadeIn' : 'animate__fadeInUp');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+            animateElements.forEach(el => observer.observe(el));
+
+            // Валидация формы
+            const form = document.querySelector('.needs-validation');
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            });
+        });
+    </script>
 {% endblock %}

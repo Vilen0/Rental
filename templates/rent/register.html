@@ -4,14 +4,87 @@
 {% block title %}Регистрация{% endblock %}
 
 {% block content %}
-    <h1>Регистрация</h1>
-    <div class="row">
-        <div class="col-md-6">
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
-            </form>
+    <section class="register-section py-5 bg-light" aria-label="Регистрация пользователя">
+        <div class="container">
+            <!-- Заголовок -->
+            <h1 class="text-center fw-bold text-primary mb-5 animate-on-scroll animate__animated animate__fadeIn">
+                <i class="bi bi-person-plus me-2"></i> Создать аккаунт
+            </h1>
+
+            <!-- Карточка формы -->
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-5">
+                    <div class="card shadow-lg border-0 animate-on-scroll animate__animated animate__fadeInUp">
+                        <div class="card-header bg-primary text-white text-center py-4">
+                            <h2 class="mb-0">Регистрация</h2>
+                        </div>
+                        <div class="card-body p-4">
+                            <form method="post" class="needs-validation" novalidate>
+                                {% csrf_token %}
+                                {% for field in form %}
+                                    <div class="mb-3">
+                                        <label for="{{ field.id_for_label }}" class="form-label fw-semibold">{{ field.label }}</label>
+                                        {{ field }}
+                                        {% if field.errors %}
+                                            <div class="invalid-feedback">
+                                                {% for error in field.errors %}
+                                                    {{ error }}
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                        {% if field.help_text %}
+                                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                                <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">Зарегистрироваться</button>
+                            </form>
+                            <p class="text-center mt-3 mb-0">
+                                Уже есть аккаунт? <a href="{% url 'rent:user_login' %}" class="text-primary fw-semibold">Войти</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Уведомления -->
+            {% if messages %}
+                <div class="position-fixed top-0 end-0 p-3" style="z-index: 1050;">
+                    {% for message in messages %}
+                        <div class="alert alert-{% if message.tags == 'success' %}success{% else %}danger{% endif %} alert-dismissible fade show animate__animated animate__fadeIn" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
-    </div>
+    </section>
+
+    <!-- Валидация формы и анимации -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Анимация при прокрутке
+            const animateElements = document.querySelectorAll('.animate-on-scroll');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate__animated', entry.classList.contains('animate__fadeIn') ? 'animate__fadeIn' : 'animate__fadeInUp');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+            animateElements.forEach(el => observer.observe(el));
+
+            // Валидация формы
+            const form = document.querySelector('.needs-validation');
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            });
+        });
+    </script>
 {% endblock %}
